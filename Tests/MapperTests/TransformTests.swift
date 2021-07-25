@@ -31,7 +31,7 @@ final class TransformTests: XCTestCase {
             }
         }
 
-        let JSON: [AnyHashable: Any] = [
+        let JSON: [String: Any] = [
             "examples": [
                 [
                     "string": "hi",
@@ -65,7 +65,7 @@ final class TransformTests: XCTestCase {
             XCTFail("Should have thrown")
         } catch MapperError.convertibleError(let value, let type) {
             XCTAssert(value as? Int == 1)
-            XCTAssert(type == [[AnyHashable: Any]].self)
+            XCTAssert(type == [[String: Any]].self)
         } catch {
             XCTFail("Expected convertibleError")
         }
@@ -81,7 +81,7 @@ final class TransformTests: XCTestCase {
             }
         }
 
-        let JSON: [AnyHashable: Any] = [
+        let JSON: [String: Any] = [
             "examples": [
                 [
                     "string": "hi",

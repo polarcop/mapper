@@ -3,12 +3,12 @@ import Foundation
 /// Mapper creates strongly typed objects from a given Dictionary based on the mapping provided by
 /// implementing the Mappable protocol (see `Mappable` for an example).
 public struct Mapper {
-    private let JSON: [AnyHashable: Any]
+    private let JSON: [String: Any]
 
     /// Create a Mapper with a Dictionary to use as source data
     ///
     /// - parameter JSON: The dictionary to use for the data
-    public init(JSON: [AnyHashable: Any]) {
+    public init(JSON: [String: Any]) {
         self.JSON = JSON
     }
 
@@ -144,11 +144,11 @@ public struct Mapper {
     /// - returns: The value for the given field, if it can be converted to the expected type T
     public func from<T: Mappable>(_ field: String) throws -> T {
         let value = try self.JSONFromField(field)
-        if let JSON = value as? [AnyHashable: Any] {
+        if let JSON = value as? [String: Any] {
             return try T(map: Mapper(JSON: JSON))
         }
 
-        throw MapperError.typeMismatchError(field: field, value: value, type: [AnyHashable: Any].self)
+        throw MapperError.typeMismatchError(field: field, value: value, type: [String: Any].self)
     }
 
     /// Get an array of Mappable values from the given field in the source data
@@ -167,11 +167,11 @@ public struct Mapper {
     /// - returns: The value for the given field, if it can be converted to the expected type [T]
     public func from<T: Mappable>(_ field: String) throws -> [T] {
         let value = try self.JSONFromField(field)
-        if let JSON = value as? [[AnyHashable: Any]] {
+        if let JSON = value as? [[String: Any]] {
             return try JSON.map { try T(map: Mapper(JSON: $0)) }
         }
 
-        throw MapperError.typeMismatchError(field: field, value: value, type: [[AnyHashable: Any]].self)
+        throw MapperError.typeMismatchError(field: field, value: value, type: [[String: Any]].self)
     }
 
     /// Get an optional Mappable value from the given field in the source data
@@ -317,7 +317,7 @@ public struct Mapper {
     /// - parameter field: The field to retrieve from the source data, can be an empty string to return the
     ///                    entire data set
     ///
-    /// - throws: MapperError.typeMismatchError if the value for the given field isn't a [AnyHashable: Any]
+    /// - throws: MapperError.typeMismatchError if the value for the given field isn't a [String: Any]
     /// - throws: Any error produced by the Convertible implementation of either expected type
     ///
     /// - returns: A dictionary where the keys and values are created using their convertible implementations
@@ -325,8 +325,8 @@ public struct Mapper {
         where U == U.ConvertedType, T == T.ConvertedType
     {
         let object = try self.JSONFromField(field)
-        guard let data = object as? [AnyHashable: Any] else {
-            throw MapperError.typeMismatchError(field: field, value: object, type: [AnyHashable: Any].self)
+        guard let data = object as? [String: Any] else {
+            throw MapperError.typeMismatchError(field: field, value: object, type: [String: Any].self)
         }
 
         var result = [U: T]()
@@ -475,21 +475,21 @@ public struct Mapper {
     ///
     /// **Example:**
     ///```
-    /// let dictionary: [AnyHashable: Any] = ["work": ["company": "Lyft"]]
+    /// let dictionary: [String: Any] = ["work": ["company": "Lyft"]]
     /// let value = getValue(from: dictionary, path: "work.company")
     /// // result: "Lyft"
     ///```
     /// - Parameters:
     ///   - dictionary: Dictionary for search the object
     ///   - path: Object path
-    private func getValue(from dictionary: [AnyHashable: Any], path: String) -> Any? {
+    private func getValue(from dictionary: [String: Any], path: String) -> Any? {
         let keys = path.components(separatedBy: ".")
 
         if keys.count == 1 {
             return dictionary[String(keys[0])]
         } else if keys.count > 1 {
             let path = keys[1...keys.count - 1].joined(separator: ".")
-            let dictionary = dictionary[String(keys[0])] as? [AnyHashable: Any]
+            let dictionary = dictionary[String(keys[0])] as? [String: Any]
 
             if let dictionary = dictionary {
                 return getValue(from: dictionary, path: path)

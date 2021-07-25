@@ -45,8 +45,8 @@ extension Transform {
     ///            values T are the objects
     public static func toDictionary<T, U>(key getKey: @escaping (T) -> U) -> (_ object: Any) throws -> [U: T] where T: Mappable {
         return { object in
-            guard let objects = object as? [[AnyHashable: Any]] else {
-                throw MapperError.convertibleError(value: object, type: [[AnyHashable: Any]].self)
+            guard let objects = object as? [[String: Any]] else {
+                throw MapperError.convertibleError(value: object, type: [[String: Any]].self)
             }
             
             var dictionary: [U: T] = [:]

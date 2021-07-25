@@ -32,7 +32,7 @@ extension Mappable {
     /// - parameter JSON: The JSON to create the object from
     ///
     /// - returns: The object if it could be created, nil if creating the object threw an error
-    public static func from(_ JSON: [AnyHashable: Any]) -> Self? {
+    public static func from(_ JSON: [String: Any]) -> Self? {
         return try? self.init(map: Mapper(JSON: JSON))
     }
 
@@ -42,7 +42,7 @@ extension Mappable {
     ///
     /// - returns: An array of the created objects, or nil if creating threw
     public static func from(_ JSON: [Any]) -> [Self]? {
-        if let array = JSON as? [[AnyHashable: Any]] {
+        if let array = JSON as? [[String: Any]] {
             return try? array.map { try self.init(map: Mapper(JSON: $0)) }
         }
 

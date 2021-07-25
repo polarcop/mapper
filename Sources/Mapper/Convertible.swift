@@ -11,7 +11,7 @@
 /// ```
 /// extension CLLocationCoordinate2D: Convertible {
 ///     public static func fromMap(value: Any) throws -> CLLocationCoordinate2D {
-///         guard let location = value as? [AnyHashable: Any],
+///         guard let location = value as? [String: Any],
 ///             let latitude = (location["lat"] ?? location["latitude"]) as? Double,
 ///             let longitude = (location["lng"] ?? location["longitude"]) as? Double else
 ///         {
