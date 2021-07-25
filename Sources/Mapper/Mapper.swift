@@ -161,7 +161,7 @@ public struct Mapper {
     ///                    entire data set
     ///
     /// - throws: MapperError.missingFieldError if the field doesn't exist
-    /// - throws: MapperError.typeMismatchError if the field exists but isn't an array of NSDictionarys
+    /// - throws: MapperError.typeMismatchError if the field exists but isn't an array of Dictionarys
     /// - throws: Any errors produced by the subsequent Mappable initializers
     ///
     /// - returns: The value for the given field, if it can be converted to the expected type [T]

@@ -36,7 +36,7 @@ extension Mappable {
         return try? self.init(map: Mapper(JSON: JSON))
     }
 
-    /// Convenience method for creating Mappable objects from a NSArray
+    /// Convenience method for creating Mappable objects from a Array
     ///
     /// - parameter JSON: The JSON to create the objects from
     ///
