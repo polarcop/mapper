@@ -18,5 +18,6 @@ let package = Package(
         .testTarget(
             name: "MapperTests",
             dependencies: ["Mapper"]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
