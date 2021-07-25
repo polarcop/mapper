@@ -2,8 +2,6 @@
 /// Should be important as part of Mapper for default conformances. Consumers should conform any other common
 /// Types in an extension in their own projects (e.g. `CGFloat`)
 import Foundation
-extension NSDictionary: DefaultConvertible {}
-extension NSArray: DefaultConvertible {}
 
 extension String: DefaultConvertible {}
 extension Int: DefaultConvertible {}
