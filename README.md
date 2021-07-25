@@ -10,7 +10,7 @@ Mapper is a simple Swift library to convert JSON to strongly typed objects. One 
 **With** [Package Manager](https://swift.org/package-manager/)
 
 ```swift
-.package(url: "https://github.com/polarcop/mapper.git", .upToNextMajor(from: "1.0.0"))
+.package(name: "Mapper", url: "https://github.com/polarcop/mapper.git", .upToNextMajor(from: "1.0.0"))
 ```
 
 
